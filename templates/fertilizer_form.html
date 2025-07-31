@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" translate="no">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fertilizer Prediction</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url('https://images.unsplash.com/photo-1607860108857-41a2a1f29b27');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%; width: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 0;
+    }
+
+    .form-container {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.92);
+      max-width: 800px;
+      width: 90%;
+      margin: 80px auto 40px auto;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      box-sizing: border-box;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+
+    .form-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .form-field {
+      flex: 1 1 45%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 5px;
+      color: #34495e;
+    }
+
+    input[type="number"],
+    select {
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #fff;
+    }
+
+    button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin-top: 25px;
+      font-size: 16px;
+      font-weight: bold;
+      color: white;
+      background-color: #27ae60;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #219150;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.85);
+      border: none;
+      border-radius: 20px;
+      padding: 8px 14px;
+      font-weight: bold;
+      color: #333;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .back-button:hover {
+      background-color: #e2e2e2;
+    }
+
+    .back-button::before {
+      content: "←";
+      margin-right: 6px;
+    }
+
+    @media (max-width: 600px) {
+      .form-field {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="/" class="back-button">Back</a>
+
+  <div class="form-container">
+    <h2>🌱 Fertilizer Prediction Form</h2>
+    <form action="/fertilizer_predict" method="POST">
+      <div class="form-group">
+        <div class="form-field">
+          <label for="Temperature">Temperature (°C)</label>
+          <input type="number" step="any" name="Temperature" required>
+        </div>
+
+        <div class="form-field">
+          <label for="Moisture">Moisture (%)</label>
+          <input type="number" step="any" name="Moisture" required>
+        </div>
+
+        <div class="form-field">
+          <label for="Rainfall">Rainfall (mm)</label>
+          <input type="number" step="any" name="Rainfall" required>
+        </div>
+
+        <div class="form-field">
+          <label for="PH">pH Level</label>
+          <input type="number" step="any" name="PH" required>
+        </div>
+
+        <div class="form-field">
+          <label for="Nitrogen">Nitrogen (mg/kg)</label>
+          <input type="number" step="any" name="Nitrogen" required>
+        </div>
+
+        <div class="form-field">
+          <label for="Phosphorous">Phosphorous (mg/kg)</label>
+          <input type="number" step="any" name="Phosphorous" required>
+        </div>
+
+        <div class="form-field">
+          <label for="Potassium">Potassium (mg/kg)</label>
+          <input type="number" step="any" name="Potassium" required>
+        </div>
+
+        <div class="form-field">
+          <label for="Carbon">Carbon Content (%)</label>
+          <input type="number" step="any" name="Carbon" required>
+        </div>
+
+        <div class="form-field">
+          <label for="Soil">Soil Type</label>
+          <select name="Soil" required>
+            <option value="">-- Select Soil --</option>
+            <option value="Loamy Soil">Loamy Soil</option>
+            <option value="Peaty Soil">Peaty Soil</option>
+            <option value="Acidic Soil">Acidic Soil</option>
+            <option value="Neutral Soil">Neutral Soil</option>
+            <option value="Alkaline Soil">Alkaline Soil</option>
+          </select>
+        </div>
+
+        <div class="form-field">
+          <label for="Crop">Crop Type</label>
+          <select name="Crop" required>
+            <option value="">-- Select Crop --</option>
+            <option value="watermelon">Watermelon</option>
+            <option value="pomegranate">Pomegranate</option>
+            <option value="papaya">Papaya</option>
+            <option value="orange">Orange</option>
+            <option value="muskmelon">Muskmelon</option>
+            <option value="mango">Mango</option>
+            <option value="apple">Apple</option>
+            <option value="grapes">Grapes</option>
+            <option value="banana">Banana</option>
+            <option value="Chickpea">Chickpea</option>
+            <option value="Pigeon Peas">Pigeon Peas</option>
+            <option value="Adzuki Beans">Adzuki Beans</option>
+            <option value="Black gram">Black Gram</option>
+            <option value="Coconut">Coconut</option>
+            <option value="Moth Beans">Moth Beans</option>
+            <option value="Kidney Beans">Kidney Beans</option>
+            <option value="Tobacco">Tobacco</option>
+            <option value="Sugarcane">Sugarcane</option>
+            <option value="Rubber">Rubber</option>
+            <option value="Peas">Peas</option>
+            <option value="Ground Nut">Ground Nut</option>
+            <option value="Cotton">Cotton</option>
+            <option value="Coffee">Coffee</option>
+            <option value="Jute">Jute</option>
+            <option value="Lentil">Lentil</option>
+            <option value="maize">Maize</option>
+            <option value="millet">Millet</option>
+            <option value="Tea">Tea</option>
+            <option value="Mung Bean">Mung Bean</option>
+            <option value="wheat">Wheat</option>
+            <option value="rice">Rice</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit">🌿 Predict Fertilizer</button>
+    </form>
+  </div>
+</body>
+</html>
