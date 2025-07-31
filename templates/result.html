@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prediction Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+            background-color: #f0f8ff;
+        }
+        .result-box {
+            display: inline-block;
+            padding: 20px 30px;
+            background-color: #e6ffed;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+        }
+        .result-box h2 {
+            color: #4CAF50;
+        }
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            color: #007BFF;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="result-box">
+        <h2>{{ result_title }}</h2>
+        <p>{{ result_value }}</p>
+    </div>
+    <a class="back-link" href="/crop_form">🔙 Back to The Form</a>
+</body>
+</html>
