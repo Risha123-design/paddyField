@@ -121,7 +121,7 @@ def disease_predict():
         if os.path.exists(filepath):
             os.remove(filepath)
 
-    return render_template('disease_form.html', disease=prediction)
+    return render_template('disease_result.html', disease=prediction)
 
 
 if __name__ == '__main__':
