@@ -1,9 +1,17 @@
 from flask import Flask, request, render_template
+from flask import flash, redirect, url_for
 import pickle
 import numpy as np
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
+
+import warnings
+warnings.filterwarnings("ignore")
+from interface.disease_predict import predict
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-
+app.config['UPLOAD_FOLDER'] = 'uploads'
 # Load trained model
 with open('models/crop_model.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -32,8 +40,8 @@ def fertilizer_form():
 def disease_form():
     return render_template('disease_form.html')
 
-@app.route('/predict', methods=['POST'])
-def predict():
+@app.route('/crop_predict', methods=['POST'])
+def crop_predict():
     try:
         data = []
         for key in ['N', 'P', 'K', 'temperature', 'humidity', 'ph', 'rainfall']:
@@ -85,7 +93,35 @@ def fertilizer_predict():
     except Exception as e:
         print("Error:", e)
         return f"Error occurred: {str(e)}", 400
+@app.route('/disease_predict', methods=['POST'])
+def disease_predict():
+    if 'leaf_image' not in request.files:
+        flash('No file part in the request.')
+        return redirect(request.url)
 
+    file = request.files['leaf_image']
+    if file.filename == '':
+        flash('No selected file.')
+        return redirect(request.url)
+
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+
+    filename = secure_filename(file.filename)
+    filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    file.save(filepath)
+
+    try:
+        prediction = predict(filepath)
+    except Exception as e:
+        flash(f"Prediction error: {e}")
+        return redirect(request.url)
+    finally:
+        # Optionally delete the file after prediction
+        if os.path.exists(filepath):
+            os.remove(filepath)
+
+    return render_template('disease_form.html', disease=prediction)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,19 @@
-<h2>Upload Leaf Image</h2>
-<form method="POST" action="/disease_predict" enctype="multipart/form-data">
-  <input type="file" name="leaf_image" accept="image/*" required />
-  <button type="submit">Predict Disease</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaf Disease Detection</title>
+</head>
+<body>
+  <h2>Upload Leaf Image</h2>
+  <form method="POST" action="/disease_predict" enctype="multipart/form-data">
+    <input type="file" name="leaf_image" accept="image/*" required />
+    <button type="submit">Predict Disease</button>
+  </form>
+
+  {% if disease %}
+    <h2>Disease Prediction</h2>
+    <p>Predicted result: <strong>{{ disease }}</strong></p>
+  {% endif %}
+</body>
+</html>
